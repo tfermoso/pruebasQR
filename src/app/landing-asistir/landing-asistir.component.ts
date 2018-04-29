@@ -28,18 +28,22 @@ export class LandingAsistirComponent implements OnInit {
     this.asistir=false;
     this.Noasistir=false;
     this.QrCode="";
+    this.comprobarInvitacion();
 
   }
 
   ngOnInit(): void {
     this.getToken();
-    this.comprobarInvitacion();
+    //this.comprobarInvitacion();
   }
   comprobarInvitacion():void{
     this.id = this.route.snapshot.paramMap.get('id');
     
     //this.database.database.ref('/IwV1feW9uyZVMPoyg42hwLAnTAZ2/invitaciones/' + this.id)
     this.database.object('/IwV1feW9uyZVMPoyg42hwLAnTAZ2/seguimiento/' + this.id).snapshotChanges().subscribe(data=>{
+        // if(data.key==null){
+
+        // }
         this.user=data.payload.val();
         if(this.user['confirmacion_asistencia']){
           this.mostrarCodigo();
