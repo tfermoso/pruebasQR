@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { StaticInjector } from '@angular/core/src/di/injector';
+import { PresentacionComponent } from '../presentacion/presentacion.component';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class LandingAsistirComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location,
     private db: AngularFireDatabase
   ) {
@@ -28,26 +30,25 @@ export class LandingAsistirComponent implements OnInit {
     this.asistir=false;
     this.Noasistir=false;
     this.QrCode="";
-    this.comprobarInvitacion();
+    //this.comprobarInvitacion();
 
   }
 
   ngOnInit(): void {
     this.getToken();
-    //this.comprobarInvitacion();
+    this.comprobarInvitacion();
   }
   comprobarInvitacion():void{
     this.id = this.route.snapshot.paramMap.get('id');
     
     //this.database.database.ref('/IwV1feW9uyZVMPoyg42hwLAnTAZ2/invitaciones/' + this.id)
     this.database.object('/IwV1feW9uyZVMPoyg42hwLAnTAZ2/seguimiento/' + this.id).snapshotChanges().subscribe(data=>{
-        // if(data.key==null){
-
-        // }
+        if(data.key!=null){
         this.user=data.payload.val();
         if(this.user['confirmacion_asistencia']){
           this.mostrarCodigo();
         }
+      }
     });
     }
   
@@ -63,6 +64,7 @@ export class LandingAsistirComponent implements OnInit {
         
       } else {
         this.nombre = "Usuario no encontrado";
+        this.router.navigateByUrl("");
       }
 
     });
