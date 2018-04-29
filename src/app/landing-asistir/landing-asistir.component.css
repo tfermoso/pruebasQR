@@ -1,0 +1,14 @@
+.trans{
+
+    display: flex;
+    justify-content: space-around;
+
+  }
+
+.center{
+text-align: center;
+}
+.contenedorQR{
+  display: flex;
+  justify-content: center;
+}

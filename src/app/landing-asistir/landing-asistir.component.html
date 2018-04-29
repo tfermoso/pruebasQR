@@ -1,3 +1,37 @@
-<p>
-  Bienvenido Sr. {{id}}
-</p>
+<div class="container center">
+  <h1>
+    Bienvenido {{nombre}} a la presentación del nuevo Clase A
+  </h1>
+  <hr>
+  <div *ngIf="!asistir">
+    <h3>Por motivos de espacio es necesario que nos confirme su asistencia</h3>
+    <div class="trans">
+
+
+      <button class="btn btn-info btn-responsive btninter centrado col-lg-3" (click)="Asistire()">Asistiré</button>
+
+      <button class="btn btn-info btn-responsive btninter right centrado col-lg-3" (click)="noAsistire()" data-toggle="modal" data-target="#myModal">No asitiré</button>
+    </div>
+  </div>
+  <div *ngIf="asistir">
+    <h3>Su código QR que deberá enseñar en la entrada es:</h3>
+    <div class="contenedorQR">
+      <qrcode [qrdata]="QrCode" [size]="256" [level]="'M'"></qrcode>
+    </div>
+  </div>
+</div>
+
+
+    <div *ngIf="Noasistir" class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">     
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Muchas gracias por avisarnos</h4>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          De todas formas le recordamos que si cambia de opinión esta invitación esta disponible para usted hasta el mismo dia del evento. No borre la invitación recibida.
+        </div>
+        
+      </div>
+    </div>
